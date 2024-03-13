@@ -4,6 +4,7 @@ import Loader from "@/components/loaders/loader";
 import { Canvas } from "@react-three/fiber";
 import { useState, Suspense, useEffect } from "react";
 import dynamic from "next/dynamic";
+import Popup from "@/components/homePage/popup";
 
 import Sky from "@/models/sky";
 import Bird from "@/models/bird";
@@ -57,7 +58,9 @@ export default function Home() {
 
   return (
     <section className="w-full h-screen relative">
-      {/* <Header /> */}
+      <div className="absolute top-28 left-0 right-0 z-10 flex items-center justify-center">
+        <Popup currentStage={currentStage} />
+      </div>    
 
       <Canvas className={`w-full h-screen bg-transparent ${isRotating ? "cursor-grabbing" : "cursor-grab"}`}
         camera={{ near: 0.1, far: 1000 }}>
@@ -69,7 +72,7 @@ export default function Home() {
           <hemisphereLight skyColor= {"#b1e1ff"} groundColor= {"#000000"} intensity={1} />
 
           <Bird />
-          <Sky />
+          <Sky isRotating= {isRotating} />
           <Island 
             position= {islandPosition} 
             scale= {islandScale} 
