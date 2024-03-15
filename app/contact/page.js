@@ -2,6 +2,8 @@
 
 
 import Loader from "@/components/loaders/loader";
+import useAlert from "@/hooks/useAlert";
+import Alert from "@/components/contactPage/alert";
 import { Canvas } from "@react-three/fiber";
 import {useState, Suspense, useRef} from "react";
 import emailjs from "@emailjs/browser";
@@ -25,6 +27,7 @@ export default function Contact() {
   const [currAnimation, setCurrAnimation]= useState("idle");
 
   const formRef= useRef();
+  const [alert, showAlert, hideAlert]= useAlert();
 
   const handleChange= (e) => {
     setForm({...form, [e.target.name]: e.target.value})
@@ -42,8 +45,8 @@ export default function Contact() {
     setCurrAnimation("hit");
 
     emailjs.send(
-      import.meta.env.EMAILJS_SERVICE_ID,
-      import.meta.env.EMAILJS_TEMPLATE_ID,
+      process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
+      process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
       {
         from_name: form.name,
         to_name: "Dharmik",
@@ -51,15 +54,21 @@ export default function Contact() {
         to_email: "17me090.dharmik.vora@gmail.com",
         message: form.message,
       },
-      import.meta.env.EMAILJS_PUBLIC_KEY,
+      process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY,
     ).then(() => {
+      setIsLoading(false);
+      showAlert({show: true, text: "Message sent successfully!", type: "success"});
+
       setTimeout(() => {
-        setIsLoading(false);
+        hideAlert(false);
         setCurrAnimation("idle");
         setForm({name: "", email: "", message: ""})  
       }, [3000]);
       
     }).catch((error) => {
+      console.log(error);
+      showAlert({show: true, text: "Failed to send message. Please try again!", type: "danger"});
+
       setIsLoading(false);
       setCurrAnimation("idle");
     })
@@ -67,6 +76,8 @@ export default function Contact() {
 
   return (
     <section className="relative flex flex-col max-container lg:flex-row">
+
+      {alert.show && <Alert {...alert} />}
       <div className="flex flex-col flex-1 min-w-[50%]"> 
         <h1 className="head-text">Get in Touch</h1>
 
@@ -110,7 +121,7 @@ export default function Contact() {
               name="message"
               rows={4}
               className="textarea"
-              placeholder="Let me know how I can help you!"
+              placeholder="Let me know how can I help you!"
               required
               value={form.message}
               onChange={handleChange}

@@ -20,6 +20,12 @@ export default function Home() {
   const [isRotating, setIsRotating]= useState(false);
   const [currentStage, setCurrentStage]= useState(1);
 
+  const [islandScale, setIslandScale]= useState([1,1,1]);
+  const [islandPosition, setIslandPosition]= useState([0,-6.5,-43.4]);
+  const [planeScale, setPlaneScale]= useState([3,3,3]);
+  const [planePosition, setPlanePosition]= useState([0,-4,-4]);
+
+
   const adjustIslandForScreenSize= () => {
     let screenScale= null;
     const screenPosition= [0, -6.5, -43.4];
@@ -47,14 +53,18 @@ export default function Home() {
     return [screenScale, screenPosition];
   }
 
-  let [islandScale, islandPosition]= [[1,1,1], [0,-6.5,-43.4]];
-  let [planeScale, planePosition]= [[3,3,3],[0,-4,-4]];
-
   useEffect(() => {
-    [islandScale, islandPosition]= adjustIslandForScreenSize();
-    [planeScale, planePosition]= adjustPlaneForScreenSize();
+    const [scaleIsland, posIsland]= adjustIslandForScreenSize();
+    const [scalePlane, posPlane]= adjustPlaneForScreenSize();
+
+    setIslandScale(scaleIsland);
+    setIslandPosition(posIsland);
+    setPlaneScale(scalePlane);
+    setPlanePosition(posPlane);
+
   }, [])
 
+    // console.log(planeScale);
 
   return (
     <section className="w-full h-screen relative">
@@ -83,8 +93,8 @@ export default function Home() {
           />
           <Plane 
             isRotating={isRotating}
-            planeScale={planeScale}
-            planePosition={planePosition}
+            scale={planeScale}
+            position={planePosition}
             rotation={[0,20,0]} />
         </Suspense>
       </Canvas>

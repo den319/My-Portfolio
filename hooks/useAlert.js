@@ -16,11 +16,7 @@ export default function useAlert() {
 		type,
 	})
 
-	const hideAlert= ({text, type="danger"}) => setAlert({
-		show: false,
-		text: "", 
-		type: "danger",
-	})
+	const hideAlert= () => setAlert({show: false, text: "", type: "danger"})
 
-	return {alert, showAlert, hideAlert};
+	return [alert, showAlert, hideAlert];
 }
