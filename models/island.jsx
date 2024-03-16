@@ -14,27 +14,17 @@ import { useGLTF } from "@react-three/drei";
 import { useFrame, useThree } from "@react-three/fiber";
 import {a} from "@react-spring/three"
 
-/* 
-import dynamic from "next/dynamic"
-
-const islandScene= dynamic(() => import("/3D_assets/3d/island.glb"), {
-  ssr:false,
-})
-*/
 
 export default function Island({isRotating, setIsRotating, setCurrentStage, currentFocusPoint, ...props}) {
 
-    // console.log(islandScene)
-
     const { nodes, materials } = useGLTF("/3D_assets/3d/island.glb");
+    const {gl, viewport}= useThree();
 
     const lastX= useRef(0);
     const rotationSpeed= useRef(0);
     const dampingFactor= 0.95;
 
     const islandRef = useRef();
-
-    const {gl, viewport}= useThree();
 
     const handlePointerDown= (e) => {
         e.stopPropagation();
@@ -51,7 +41,7 @@ export default function Island({isRotating, setIsRotating, setCurrentStage, curr
     const handlePointerUp= (e) => {
         e.stopPropagation();
         e.preventDefault();
-        setIsRotating(true);
+        setIsRotating(false);
     }
 
     const handlePointerMove= (e) => {
@@ -91,6 +81,35 @@ export default function Island({isRotating, setIsRotating, setCurrentStage, curr
     const handleKeyUp= (e) => {
         if(e.key === "ArrowLeft" || e.key === "ArrowRight") setIsRotating(false);
     } 
+
+    const handleTouchStart= (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        setIsRotating(true);
+      
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        lastX.current = clientX;
+    }
+
+    const handleTouchMove= (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+      
+        if (isRotating) {
+          const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+          const delta = (clientX - lastX.current) / viewport.width;
+      
+          islandRef.current.rotation.y += delta * 0.01 * Math.PI;
+          lastX.current = clientX;
+          rotationSpeed.current = delta * 0.01 * Math.PI;
+        }
+    }
+
+    const handleTouchEnd= (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        setIsRotating(false);
+    }
 
     useFrame(() => {
         if(!isRotating) {
@@ -157,16 +176,21 @@ export default function Island({isRotating, setIsRotating, setCurrentStage, curr
             canvas.addEventListener("pointermove", handlePointerMove);
             document.addEventListener("keydown", handleKeyDown);
             document.addEventListener("keyup", handleKeyUp);
+            canvas.addEventListener("touchstart", handleTouchStart);
+            canvas.addEventListener("touchend", handleTouchEnd);
+            canvas.addEventListener("touchmove", handleTouchMove);
         }
 
 
         return () => {
-            // console.log(canvas);
             canvas.removeEventListener("pointerdown", handlePointerDown);
             canvas.removeEventListener("pointerup", handlePointerUp);
             canvas.removeEventListener("pointermove", handlePointerMove);
             document.removeEventListener("keydown", handleKeyDown);
             document.removeEventListener("keyup", handleKeyUp);
+            canvas.removeEventListener("touchstart", handleTouchStart);
+            canvas.removeEventListener("touchend", handleTouchEnd);
+            canvas.removeEventListener("touchmove", handleTouchMove);
         }
     }, [gl, handlePointerDown, handlePointerUp, handlePointerMove])
 

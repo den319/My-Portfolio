@@ -8,7 +8,7 @@ function InfoBox({text, link, btnText}) {
 
 	return (
 		<div className="info-box">
-			<p className="font-medium text-center sm:text-xl">
+			<p className="font-medium text-center sm:text-lg">
 				{text}
 			</p>
 
@@ -30,7 +30,7 @@ function InfoBox({text, link, btnText}) {
 const renderContent= {
 	1: (
 		<h1 className="text-center neo-brutalism-blue py-4 px-8 text-white mx-5
-			sm:text-xl sm:leading-snug">
+			sm:text-lg sm:leading-snug">
 			Hi, I am <span> Dharmik </span>
 			<br/>
 			A Software Engineer from India.
@@ -60,7 +60,5 @@ const renderContent= {
 }
 
 export default function Popup({currentStage}) {
-	// console.log(currentStage);
-
 	return renderContent[currentStage] || null;
 }

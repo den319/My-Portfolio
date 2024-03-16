@@ -20,7 +20,7 @@ export default function Home() {
 
   const [isRotating, setIsRotating]= useState(false);
   const [currentStage, setCurrentStage]= useState(1);
-  const [isPlayingMusic, setIsPlayingMusic]= useState(true);
+  const [isPlayingMusic, setIsPlayingMusic]= useState(false);
 
   const [islandScale, setIslandScale]= useState([1,1,1]);
   const [islandPosition, setIslandPosition]= useState([0,-6.5,-43.4]);
@@ -28,14 +28,12 @@ export default function Home() {
   const [planePosition, setPlanePosition]= useState([0,-4,-4]);
 
 
-  const audioRef= useRef(new Audio("/3D_assets/sakura.mp3"));
-  audioRef.current.volume= 0.4;
-  audioRef.current.loop= true; 
+  const audioRef= useRef(null);
+  
 
   const adjustIslandForScreenSize= () => {
     let screenScale= null;
     const screenPosition= [0, -6.5, -43.4];
-    // const rotation= [0.1, 4.7, 0];
 
     if(window.innerWidth < 768) {
       screenScale= [0.9, 0.9, 0.9];
@@ -59,6 +57,23 @@ export default function Home() {
     return [screenScale, screenPosition];
   }
 
+   const handlePlay = () => {
+    if (audioRef.current) {
+      if(!isPlayingMusic) {
+        setIsPlayingMusic(true);
+        audioRef.current.play()
+        .catch(error => {
+          // Handle any errors that occur while attempting to play the audio
+          console.error('Failed to play audio:', error);
+        });
+      } else {
+        setIsPlayingMusic(false);
+        audioRef.current.pause();
+      }
+    }
+  };
+
+
   useEffect(() => {
     const [scaleIsland, posIsland]= adjustIslandForScreenSize();
     const [scalePlane, posPlane]= adjustPlaneForScreenSize();
@@ -70,18 +85,10 @@ export default function Home() {
 
   }, [])
 
-  useEffect(() => {
-    if(isPlayingMusic) audioRef.current.play();
-
-    return () => audioRef.current.pause();
-
-  }, [isPlayingMusic]);
-
-    // console.log(planeScale);
 
   return (
     <section className="w-full h-screen relative">
-      <div className="absolute top-28 left-0 right-0 z-10 flex items-center justify-center">
+      <div className="absolute top-20 left-0 right-0 z-10 flex items-center justify-center">
         <Popup currentStage={currentStage} />
       </div>    
 
@@ -90,8 +97,13 @@ export default function Home() {
         <Suspense fallback={<Loader />}>
           <directionalLight position={[1,1,1]} intensity={2} />
           <ambientLight intensity={0.5} />
-          <pointLight />
-          <spotLight />
+          <pointLight position={[10, 5, 10]} intensity={2} />
+          <spotLight 
+            position={[0, 50, 10]}
+            angle={0.15}
+            penumbra={1}
+            intensity={2}
+          />
           <hemisphereLight skyColor= {"#b1e1ff"} groundColor= {"#000000"} intensity={1} />
 
           <Bird />
@@ -108,12 +120,18 @@ export default function Home() {
             isRotating={isRotating}
             scale={planeScale}
             position={planePosition}
-            rotation={[0,20,0]} />
+            rotation={[0,20.1,0]} />
         </Suspense>
       </Canvas>
 
+      <audio 
+        ref= {audioRef} 
+        src="/3D_assets/sakura.mp3" 
+        loop= {true} 
+        autoPlay= {true}>
+      </audio>
       <div className="absolute bottom-2 left-2 w-10 h-10 cursor-pointerobject-contain"
-          onClick= {() => setIsPlayingMusic(!isPlayingMusic)} >
+          onClick= {handlePlay} >
         <Image
           src= {isPlayingMusic ? "/3D_assets/icons/soundon.png" : "/3D_assets/icons/soundoff.png"}
           alt= "sound"
