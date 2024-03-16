@@ -75,7 +75,7 @@ export default function Contact() {
   }
 
   return (
-    <section className="relative flex flex-col max-container lg:flex-row">
+    <section className="relative flex flex-col max-container h-[100vh] lg:flex-row">
 
       {alert.show && <Alert {...alert} />}
       <div className="flex flex-col flex-1 min-w-[50%]"> 

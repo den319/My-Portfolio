@@ -2,9 +2,10 @@
 
 import Loader from "@/components/loaders/loader";
 import { Canvas } from "@react-three/fiber";
-import { useState, Suspense, useEffect } from "react";
+import { useState, Suspense, useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
 import Popup from "@/components/homePage/popup";
+import Image from "next/image";
 
 import Sky from "@/models/sky";
 import Bird from "@/models/bird";
@@ -19,12 +20,17 @@ export default function Home() {
 
   const [isRotating, setIsRotating]= useState(false);
   const [currentStage, setCurrentStage]= useState(1);
+  const [isPlayingMusic, setIsPlayingMusic]= useState(true);
 
   const [islandScale, setIslandScale]= useState([1,1,1]);
   const [islandPosition, setIslandPosition]= useState([0,-6.5,-43.4]);
   const [planeScale, setPlaneScale]= useState([3,3,3]);
   const [planePosition, setPlanePosition]= useState([0,-4,-4]);
 
+
+  const audioRef= useRef(new Audio("/3D_assets/sakura.mp3"));
+  audioRef.current.volume= 0.4;
+  audioRef.current.loop= true; 
 
   const adjustIslandForScreenSize= () => {
     let screenScale= null;
@@ -64,6 +70,13 @@ export default function Home() {
 
   }, [])
 
+  useEffect(() => {
+    if(isPlayingMusic) audioRef.current.play();
+
+    return () => audioRef.current.pause();
+
+  }, [isPlayingMusic]);
+
     // console.log(planeScale);
 
   return (
@@ -98,6 +111,16 @@ export default function Home() {
             rotation={[0,20,0]} />
         </Suspense>
       </Canvas>
+
+      <div className="absolute bottom-2 left-2 w-10 h-10 cursor-pointerobject-contain"
+          onClick= {() => setIsPlayingMusic(!isPlayingMusic)} >
+        <Image
+          src= {isPlayingMusic ? "/3D_assets/icons/soundon.png" : "/3D_assets/icons/soundoff.png"}
+          alt= "sound"
+          width= {50}
+          height={50}
+        />
+      </div>
     </section>
   );
 }

@@ -28,7 +28,7 @@ body:has(.card[data-color="green"]:hover) {
   }
 
   .main {
-    @apply h-[100vh];
+    @apply h-full;
   }
 
   .max-container {
