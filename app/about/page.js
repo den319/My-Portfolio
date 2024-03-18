@@ -37,7 +37,7 @@ export default function Home() {
                 <div className="btn-back rounded-xl"></div>
                 <div className="w-1/2 h-1/2 object-contain btn-front rounded-xl flex flex-wrap
                     justify-center items-center">
-                  <Image src={skill.imagePath} alt={skill.name} height={50} width={50} />
+                  <Image src={skill.imagePath} alt={skill.name} height={50} width={50} className="w-[50px] h-[50px]" />
                 </div>
               </div>
             )

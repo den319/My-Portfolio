@@ -25,6 +25,7 @@ export default function ContactToAdmin() {
 									alt= {name}
 									height= {40}
 									width= {40} 
+									className="w-[50px] h-[50px]"
 								/>
 							</Link>
 						)

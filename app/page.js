@@ -84,7 +84,7 @@ export default function Home() {
     setPlanePosition(posPlane);
 
   }, []);
-  
+
   return (
     <section className="w-full h-screen relative">
       <div className="absolute top-20 left-0 right-0 z-10 flex items-center justify-center">
@@ -128,13 +128,12 @@ export default function Home() {
       <audio 
         ref= {audioRef} 
         src="/3D_assets/sakura.mp3" 
-        loop= {true} 
-        autoPlay= {true}>
+        loop= {true} >
       </audio>
       <div className="absolute bottom-2 left-2 w-10 h-10 cursor-pointer object-contain"
           onClick= {handlePlay} >
         <Image
-          src= {isPlayingMusic ? "/3D_assets/icons/soundon.png" : "/3D_assets/icons/soundoff.png"}
+          src= {isPlayingMusic ? "/3D_assets/icons/soundon.svg" : "/3D_assets/icons/soundoff.svg"}
           alt= "sound"
           width= {50}
           height={50}
