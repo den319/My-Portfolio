@@ -17,12 +17,14 @@ export default function Home() {
   return (
     <section className="max-container" >
       <h1 className="head-text">
-        Hi, I am <span className="blue-gradien_text font-semibold drop-shadow">Dharmik</span>
+        Hi, I am <span className="blue-gradient_text font-semibold drop-shadow">Dharmik</span>
       </h1>
 
       <div className="mt-5 flex flex-col gap-3 text-slate-500">
         <p>
-          A Software Engineer.
+          A Software Engineer, excited to solve real-life problems and 
+           to build products that make a difference. I enjoy exploring new 
+           technologies and pushing the boundaries of what's possible.
         </p>
       </div>
 
@@ -46,7 +48,8 @@ export default function Home() {
       <div className="py-16">
         <h3 className="subhead-text">Work Experience</h3>
         <div className="mt-5 flex flex-col gap-3 text-slate-500">
-          <p>I have worked with many companies. Here is the rundown:</p>
+          <p>In my journey as a Software Engineer, I worked with diverse group of people and levelled up my skills. 
+              Here is the rundown:</p>
         </div>
 
         <div className="mt-12 flex">
@@ -55,7 +58,7 @@ export default function Home() {
             {
               experiences.map(experience => (
                 <VerticalTimelineElement 
-                  key={experience.companyName} 
+                  key={experience.index } 
                   date={experience.date} 
                   visible={true}
                   icon={

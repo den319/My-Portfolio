@@ -111,6 +111,10 @@ export default function Island({isRotating, setIsRotating, setCurrentStage, curr
         setIsRotating(false);
     }
 
+    const handleScrollUp= (e) => {
+        console.log("hi");
+    }
+
     useFrame(() => {
         if(!isRotating) {
             rotationSpeed.current *= dampingFactor;
@@ -143,7 +147,7 @@ export default function Island({isRotating, setIsRotating, setCurrentStage, curr
             const normalizedRotation= ((rotation % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);
 
             switch(true) {
-                case normalizedRotation >= 4.45 && normalizedRotation <= 5.85:
+                case normalizedRotation >= 5.40 && normalizedRotation <= 5.80:
                     setCurrentStage(4);
                     break;
 
@@ -155,15 +159,13 @@ export default function Island({isRotating, setIsRotating, setCurrentStage, curr
                     setCurrentStage(2);
                     break;
 
-                case normalizedRotation >= 4.25 && normalizedRotation <= 4.75:
+                case normalizedRotation >= 4.20 && normalizedRotation <= 5.10:
                     setCurrentStage(1);
                     break;
 
                 default:
                     setCurrentStage(null);
             }
-
-
         }
     });
 
@@ -181,7 +183,6 @@ export default function Island({isRotating, setIsRotating, setCurrentStage, curr
             canvas.addEventListener("touchmove", handleTouchMove);
         }
 
-
         return () => {
             canvas.removeEventListener("pointerdown", handlePointerDown);
             canvas.removeEventListener("pointerup", handlePointerUp);
@@ -191,6 +192,8 @@ export default function Island({isRotating, setIsRotating, setCurrentStage, curr
             canvas.removeEventListener("touchstart", handleTouchStart);
             canvas.removeEventListener("touchend", handleTouchEnd);
             canvas.removeEventListener("touchmove", handleTouchMove);
+            window.removeEventListener("scroll", handleScrollUp);
+
         }
     }, [gl, handlePointerDown, handlePointerUp, handlePointerMove])
 

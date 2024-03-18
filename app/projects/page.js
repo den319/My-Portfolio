@@ -11,12 +11,17 @@ export default function Home() {
   return (
     <section className="max-container" >
       <h1 className="head-text">
-        My <span className="blue-gradien_text font-semibold drop-shadow">Projects</span>
+        My <span className="blue-gradient_text font-semibold drop-shadow">Projects</span>
       </h1>
 
       <div className="mt-5 flex flex-col gap-3 text-slate-500">
         <p>
-          Many projects.
+          I have embarked on numerous projects throughout the years, but these 
+          are the ones I hold closest to my heart.
+          You will find a curated collection of my latest work, ranging from 
+          web applications to software solutions. 
+          Each project represents a unique opportunity for me to demonstrate 
+          my skills, creativity, and passion for development.
         </p>
       </div>
 
