@@ -18,7 +18,11 @@ const Island= dynamic(() => import("@/models/island"), {
 
 export default function Home() {
 
-  const [isRotating, setIsRotating]= useState(false);
+  const [isRotatingForDrag, setIsRotatingForDrag]= useState(false);
+  const [isRotatingForKey, setIsRotatingForKey]= useState(false);
+  const [isRotatingForWheel, setIsRotatingForWheel]= useState(false);
+
+
   const [currentStage, setCurrentStage]= useState(1);
   const [isPlayingMusic, setIsPlayingMusic]= useState(false);
 
@@ -29,6 +33,7 @@ export default function Home() {
 
 
   const audioRef= useRef(null);
+
   
 
   const adjustIslandForScreenSize= () => {
@@ -92,7 +97,7 @@ export default function Home() {
       </div>    
         
 
-      <Canvas className={`w-full h-screen bg-transparent ${isRotating ? "cursor-grabbing" : "cursor-grab"}`}
+      <Canvas className={`w-full h-screen bg-transparent ${isRotatingForDrag ? "cursor-grabbing" : "cursor-grab"}`}
         camera={{ near: 0.1, far: 1000 }}>
         
         <Suspense fallback={<Loader />}> 
@@ -108,17 +113,23 @@ export default function Home() {
           <hemisphereLight skyColor= {"#b1e1ff"} groundColor= {"#000000"} intensity={1} />
 
           <Bird />
-          <Sky isRotating= {isRotating} />
+          <Sky isRotatingForDrag= {isRotatingForDrag} />
           <Island 
             position= {islandPosition} 
             scale= {islandScale} 
             rotation={[0.1, 4.7077, 0]}
-            isRotating={isRotating}
-            setIsRotating={setIsRotating}
+            isRotatingForDrag={isRotatingForDrag}
+            isRotatingForKey={isRotatingForKey}
+            isRotatingForWheel={isRotatingForWheel}
+            setIsRotatingForDrag={setIsRotatingForDrag}
+            setIsRotatingForKey={setIsRotatingForKey}
+            setIsRotatingForWheel={setIsRotatingForWheel}
             setCurrentStage= {setCurrentStage}
           />
           <Plane 
-            isRotating={isRotating}
+            isRotatingForDrag={isRotatingForDrag}
+            isRotatingForKey={isRotatingForKey}
+            isRotatingForWheel={isRotatingForWheel}
             scale={planeScale}
             position={planePosition}
             rotation={[0,20.1,0]} />

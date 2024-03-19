@@ -4,12 +4,12 @@ import {useGLTF} from "@react-three/drei";
 import {useRef} from "react";
 import {useFrame} from "@react-three/fiber";
  
-export default function Sky({isRotating}) {
+export default function Sky({isRotatingForDrag}) {
 	const sky= useGLTF("/3D_assets/3d/sky.glb");
 	const skyRef= useRef();
 
 	useFrame((_, delta) => {
-		if(isRotating) {
+		if(isRotatingForDrag) {
 			skyRef.current.rotation.y += 0.09*delta;
 		}
 

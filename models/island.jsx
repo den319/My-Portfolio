@@ -6,21 +6,24 @@ import { useFrame, useThree } from "@react-three/fiber";
 import {a} from "@react-spring/three"
 
 
-export default function Island({isRotating, setIsRotating, setCurrentStage, currentFocusPoint, ...props}) {
+export default function Island({isRotatingForDrag, isRotatingForKey, isRotatingForWheel,
+    setIsRotatingForDrag, setIsRotatingForKey, setIsRotatingForWheel,
+    setCurrentStage, currentFocusPoint, ...props}) {
 
     const { nodes, materials } = useGLTF("/3D_assets/3d/island.glb");
     const {gl, viewport}= useThree();
 
-    const lastX= useRef(0);
     const rotationSpeed= useRef(0);
     const dampingFactor= 0.95;
 
     const islandRef = useRef();
+    const lastX= useRef(0);
+
 
     const handlePointerDown= (e) => {
         e.stopPropagation();
         e.preventDefault();
-        setIsRotating(true);
+        setIsRotatingForDrag(true);
 
         const clientX= e.touches
             ? e.touches[0].clientX
@@ -32,14 +35,14 @@ export default function Island({isRotating, setIsRotating, setCurrentStage, curr
     const handlePointerUp= (e) => {
         e.stopPropagation();
         e.preventDefault();
-        setIsRotating(false);
+        setIsRotatingForDrag(false);
     }
 
     const handlePointerMove= (e) => {
         e.stopPropagation();
         e.preventDefault();
 
-        if(isRotating) {
+        if(isRotatingForDrag) {
             const clientX= e.touches
             ? e.touches[0].clientX
             : e.clientX;
@@ -56,7 +59,7 @@ export default function Island({isRotating, setIsRotating, setCurrentStage, curr
     }
 
     const handleKeyDown= (e) => {
-        if(!isRotating) setIsRotating(true);
+        if(!isRotatingForKey) setIsRotatingForKey(true);
 
         if(e.key === "ArrowLeft") {
             islandRef.current.rotation.y += 0.005 * Math.PI;
@@ -68,13 +71,13 @@ export default function Island({isRotating, setIsRotating, setCurrentStage, curr
     }
 
     const handleKeyUp= (e) => {
-        if(e.key === "ArrowLeft" || e.key === "ArrowRight") setIsRotating(false);
+        if(e.key === "ArrowLeft" || e.key === "ArrowRight") setIsRotatingForKey(false);
     } 
 
     const handleTouchStart= (e) => {
         e.stopPropagation();
         e.preventDefault();
-        setIsRotating(true);
+        setIsRotatingForDrag(true);
       
         const clientX = e.touches ? e.touches[0].clientX : e.clientX;
         lastX.current = clientX;
@@ -84,7 +87,7 @@ export default function Island({isRotating, setIsRotating, setCurrentStage, curr
         e.stopPropagation();
         e.preventDefault();
       
-        if (isRotating) {
+        if (isRotatingForDrag) {
           const clientX = e.touches ? e.touches[0].clientX : e.clientX;
           const delta = (clientX - lastX.current) / viewport.width;
       
@@ -97,11 +100,11 @@ export default function Island({isRotating, setIsRotating, setCurrentStage, curr
     const handleTouchEnd= (e) => {
         e.stopPropagation();
         e.preventDefault();
-        setIsRotating(false);
+        setIsRotatingForDrag(false);
     }
 
     const handleMouseWheel= (e) => {
-        if(!isRotating) setIsRotating(true);
+        if(!isRotatingForDrag) setIsRotatingForWheel(true);
 
         if(e.deltaY > 0) {
             islandRef.current.rotation.y -= 0.005 * Math.PI;
@@ -113,7 +116,7 @@ export default function Island({isRotating, setIsRotating, setCurrentStage, curr
     }
 
     useFrame(() => {
-        if(!isRotating) {
+        if(!isRotatingForDrag || !isRotatingForKey || isRotatingForWheel) {
             rotationSpeed.current *= dampingFactor;
 
             if(Math.abs(rotationSpeed.current) < 0.001) {
