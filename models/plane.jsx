@@ -16,7 +16,15 @@ export default function Plane({isRotating, ...props}) {
 		} 
 	}
 
-	// console.log(animations);
+	const handleMouseWheel= (e) => {
+		if(isRotating) {
+			if(e.deltaY > 0) {
+				planeRef.current.rotation.y= 1.3;
+			} else {
+				planeRef.current.rotation.y= -1.5;
+			}
+		}
+    }
 
 	useEffect(() => {
 		if(isRotating) {
@@ -29,10 +37,12 @@ export default function Plane({isRotating, ...props}) {
 	useEffect(() => {
 		if(typeof document !== "undefined") {
 			document.addEventListener("keydown", handleArrowMove);
+			document.addEventListener("wheel", handleMouseWheel);
 		}
 
 		return () => {
 			document.removeEventListener("keydown", handleArrowMove);
+			document.removeEventListener("wheel", handleMouseWheel);
 		}
 	}, [handleArrowMove])
 

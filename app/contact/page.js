@@ -66,7 +66,6 @@ export default function Contact() {
       }, [3000]);
       
     }).catch((error) => {
-      console.log(error);
       showAlert({show: true, text: "Failed to send message. Please try again!", type: "danger"});
 
       setIsLoading(false);

@@ -12,9 +12,6 @@ export default function Bird() {
 	const {actions}= useAnimations(animations, birdRef);
 
 	useFrame(({clock, camera}) => {
-		// birdRef.current.rotation.x += 0.15*delta;
-		// console.log(birdRef.current);
-
 		// update the y-position to simulate bird-like motion using sin-wave
 		birdRef.current.position.y= Math.sin(clock.elapsedTime) * 0.2 + 2;
 
