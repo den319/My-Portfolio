@@ -116,7 +116,7 @@ export default function Island({isRotatingForDrag, isRotatingForKey, isRotatingF
     }
 
     useFrame(() => {
-        if(!isRotatingForDrag || !isRotatingForKey || isRotatingForWheel) {
+        if(!isRotatingForDrag && !isRotatingForKey && !isRotatingForWheel) {
             rotationSpeed.current *= dampingFactor;
 
             if(Math.abs(rotationSpeed.current) < 0.001) {
