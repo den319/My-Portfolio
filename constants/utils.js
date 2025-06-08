@@ -106,11 +106,11 @@ export const experiences = [
         companyName: "Alphabit Infoway",
         icon: "/3D_assets/icons/alphabit.svg",
         iconBg: "#accbe1",
-        date: "October 2023 - April 2034",
+        date: "October 2023 - April 2024",
         points: [
-            "Developing and maintaining web applications using React.js and other related technologies.",
-            "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-            "Participating in code reviews and providing constructive feedback to other developers.",
+            "Developed and maintained scalable web applications using React.js, Redux, and REST APIs, improving performance by optimizing component lifecycle.",
+            "Collaborated with UI/UX designers and backend engineers to deliver production-ready features in agile sprints, reducing feature rollout time.",
+            "Conducted regular code reviews and mentored junior developers, which improved codebase consistency and reduced bugs in production.",
         ],
     },
     {
@@ -119,9 +119,9 @@ export const experiences = [
         companyName: "Alphabit Infoway",
         icon: "/3D_assets/icons/alphabit.svg",
         iconBg: "#fbc3bc",
-        date: "October 2023 - April 2034",
+        date: "October 2023 - April 2024",
         points: [
-            "Developed comprehensive curriculum for JavaScript and ReactJS courses, covering fundamental to advanced topics to meet the needs of diverse learners.",
+            "Made comprehensive curriculum for JavaScript and ReactJS courses, covering fundamental to advanced topics to meet the needs of diverse learners.",
             "Delivered engaging lectures, led hands-on coding exercises, and facilitated interactive discussions to enhance student learning.",
             "Assessed student performance, provided constructive feedback, and supported individualized learning goals."
         ],
@@ -134,8 +134,9 @@ export const experiences = [
         iconBg: "#accbe1",
         date: "April 2024",
         points: [
-            "Create and maintain on Crypto-Exchange web-applications as well as web-applications related to Healthcare sector.",
-            "Maintain the existing web-applications and fixed the bugs and optimize the performance."
+            "Develop and maintain full-stack web applications in the crypto-exchange and healthcare sectors using Next.js, Nest.js, Laravel, and PostgreSQL, supporting 6+ live production systems.",
+            "Identified and resolved performance bottlenecks and critical bugs across multiple web apps, improving page load speed by up to 20% and reducing reported bugs by 30%.",
+
         ],
     },
 ];
@@ -162,11 +163,16 @@ export const socialLinks = [
 
 export const projects = [
     {
-        iconPath: "/3D_assets/icons/game-controller.svg",
-        theme: 'btn-back-pink',
-        name: 'Edo Samurai',
-        description: 'This is a 2D two player game specific for larger screen size and require a keyboard to enjoy the game.',
-        link: 'https://edo-samurai.netlify.app/',
+        iconPath: "/3D_assets/icons/setting.svg",
+        theme: 'btn-back-blue',
+        name: 'Zentry',
+        description: `Dive into the world of immersive motion with my Sentry Marketing Page 
+            Clone! Inspired by Sentry’s original site, this project isn’t just a visual 
+            copy—it’s a canvas of web animations, scroll-driven interactions, and dynamic 
+            transitions brought to life. While a few minor UI tweaks are left, the clone 
+            is live and fully interactive—an elegant demonstration of motion-driven 
+            front-end craftsmanship ready to catch eyes.`,
+        link: 'https://zentry-lite.netlify.app/',
     },
     {
         iconPath: "/3D_assets/icons/pricewise.svg",
@@ -174,6 +180,13 @@ export const projects = [
         name: 'The Souled Store',
         description: "An e-commerce platform which offers a curated selection of stylish men's and women's wear, providing a seamless and delightful shopping experience for fashion enthusiasts. Souled Store provides diverse collection and user-freindly plateform where browsing, shopping and checkout is easy and effortless.",
         link: 'https://souled-store-six.vercel.app/',
+    },
+    {
+        iconPath: "/3D_assets/icons/game-controller.svg",
+        theme: 'btn-back-pink',
+        name: 'Edo Samurai',
+        description: 'A two-dimensional fighting-game which require two users, specific for larger screen size and require a keyboard to enjoy the game.',
+        link: 'https://edo-samurai.netlify.app/',
     },
     {
         iconPath: "/3D_assets/icons/threads.svg",
