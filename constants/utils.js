@@ -16,9 +16,14 @@ export const skills = [
         name: "Java",
         type: "Backend",
     },
+    // {
+    //     imagePath: "/3D_assets/icons/golang.svg",
+    //     name: "Go",
+    //     type: "Backend",
+    // },
     {
-        imagePath: "/3D_assets/icons/golang.svg",
-        name: "Go",
+        imagePath: "/3D_assets/icons/rust.svg",
+        name: "Rust",
         type: "Backend",
     },
     {
