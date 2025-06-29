@@ -28,10 +28,10 @@ export default function Navbar() {
                         About
                     </p>
                 </Link>
-                <Link href={"/projects"} className={pathName === "/projects" ?
+                <Link href={"/proof-of-work"} className={pathName === "/proof-of-work" ?
                     "text-blue-500" : "text-black"}>
                     <p>
-                        Projects
+                        Proof of Work
                     </p>
                 </Link>
             </nav>

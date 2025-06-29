@@ -7,7 +7,7 @@ import Image from "next/image";
 import {VerticalTimeline, VerticalTimelineElement} from "react-vertical-timeline-component";
 import "react-vertical-timeline-component/style.min.css";
 
-export default function Home() {
+export default function About() {
   const [clientSide, setClientSide]= useState(false);
 
   useEffect(() => {

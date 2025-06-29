@@ -7,7 +7,7 @@ import ContactToAdmin from "@/components/aboutPage/contactToAdmin";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Home() {
+export default function ProofOfWork() {
   return (
     <section className="max-container" >
       <h1 className="head-text">
